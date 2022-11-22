@@ -1,69 +1,15 @@
 var dispatch = d3.dispatch('redraw');
 let data = [
-    {
-        "HorasCausadas": 39.10,
-        "HorasPactadas": 16.6,
-        "Progreso": 2,
-        "TiempoDedicado": 38.25,
-        "Horas": 12.25,
-        "Tipo": "A"
-    },
-    {
-        "HorasCausadas": 19.3,
-        "HorasPactadas": 19.3,
-        "Progreso": 10,
-        "TiempoDedicado": 9.25,
-        "Horas": 12.25,
-        "Tipo": "B"
-    },
-    {
-        "HorasCausadas": 75.6,
-        "HorasPactadas": 26.6,
-        "Progreso": 10,
-        "TiempoDedicado": 1.25,
-        "Horas": 16,
-        "Tipo": "C"
-    },
-    {
-        "HorasCausadas": 50.5,
-        "HorasPactadas": 7.6,
-        "Progreso": 15,
-        "TiempoDedicado": 8.25,
-        "Horas": 10.95,
-        "Tipo": "D"
-    },
-    {
-        "HorasCausadas": 60.10,
-        "HorasPactadas": 16.6,
-        "Progreso": 2,
-        "TiempoDedicado": 38.25,
-        "Horas": 12.25,
-        "Tipo": "E"
-    },
-    {
-        "HorasCausadas": 85.3,
-        "HorasPactadas": 19.3,
-        "Progreso": 10,
-        "TiempoDedicado": 9.25,
-        "Horas": 12.25,
-        "Tipo": "F"
-    },
-    {
-        "HorasCausadas": 43.6,
-        "HorasPactadas": 26.6,
-        "Progreso": 10,
-        "TiempoDedicado": 1.25,
-        "Horas": 16,
-        "Tipo": "G"
-    },
-    {
-        "HorasCausadas": 10.5,
-        "HorasPactadas": 7.6,
-        "Progreso": 15,
-        "TiempoDedicado": 8.25,
-        "Horas": 10.95,
-        "Tipo": "H"
-    }
+    { 'nombre': 'Indicador A', 'medida': 98 },
+    { 'nombre': 'Indicador B', 'medida': 45 },
+    { 'nombre': 'Indicador C', 'medida': 60 },
+    { 'nombre': 'Indicador D', 'medida': 8 },
+    { 'nombre': 'Indicador E', 'medida': 98 },
+    { 'nombre': 'Indicador F', 'medida': 73 },
+    { 'nombre': 'Indicador G', 'medida': 50 },
+    { 'nombre': 'Indicador H', 'medida': 12 },
+    { 'nombre': 'Indicador I', 'medida': 85 },
+    { 'nombre': 'Indicador J', 'medida': 18 },
 ]
 
 /******************************************************************* */
@@ -75,14 +21,14 @@ GaugePanel1 = liquidGaugeChart('#GaugePanel1');
 var xf = crossfilter(data);
 
 data.forEach(function (d) {
-    d.medida = 1;
+    //d.medida = 1;
 });
 
-var tipoDim = xf.dimension(function (d) { return d.Tipo });
-var horasCausadasDim = xf.dimension(function (d) { return d.Tipo });
+var tipoDim = xf.dimension(function (d) { return d.nombre });
+var horasCausadasDim = xf.dimension(function (d) { return d.nombre });
 
 tipoDimSumGroup = tipoDim.group().reduceSum(function (d) { return +d.medida; });
-horasCausadasDimSumGroup = horasCausadasDim.group().reduceSum(function (d) { return +d.HorasCausadas; });
+horasCausadasDimSumGroup = horasCausadasDim.group().reduceSum(function (d) { return +d.medida; });
 
 //Grupos falsos
 noEmptyHorasCausadasGroup = remove_cero(horasCausadasDimSumGroup);
